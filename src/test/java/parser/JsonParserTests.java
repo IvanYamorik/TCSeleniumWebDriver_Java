@@ -1,12 +1,14 @@
 package parser;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import shop.Cart;
 import shop.RealItem;
 
 import java.io.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonParserTests {
     @Test
@@ -38,6 +40,15 @@ public class JsonParserTests {
         BufferedReader reader = new BufferedReader(new FileReader(f));
         String actualJson = reader.readLine();
         assertEquals(expectedJson, actualJson);
-
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"notexists-cart.json", "1.json", "2.json", "3.json", "newcart.json"})
+    public void readFromFile_throwsNoSuchFileException(String fileName) {
+        Parser parser = new JsonParser();
+        assertThrows(NoSuchFileException.class, () -> {
+            parser.readFromFile(new File("src/main/resources/" + fileName));
+        });
+    }
+
 }
