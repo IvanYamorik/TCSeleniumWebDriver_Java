@@ -10,13 +10,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RealItemTests {
     @Test
-    void getMethods_forRealItem() {
-        RealItem car = new RealItem();
-        car.setName("Audi");
-        car.setPrice(32026.9);
-        car.setWeight(1560);
-        assertEquals("Audi", car.getName());
-        assertEquals(32026.9, car.getPrice());
-        assertEquals(1560, car.getWeight());
+    void realItemGetMethods_returnExpectedValues() {
+        final String testName = "testName";
+        final double testPrice = 10000.5;
+        final double testWeight = 2500.2;
+        RealItem testItem = new RealItem();
+        testItem.setName(testName);
+        testItem.setPrice(testPrice);
+        testItem.setWeight(testWeight);
+
+        String actualName = testItem.getName();
+        double actualPrice = testItem.getPrice();
+        double actualWeight = testItem.getWeight();
+
+        assertEquals(testName, actualName);
+        assertEquals(testPrice, actualPrice);
+        assertEquals(testWeight, actualWeight);
     }
 }
