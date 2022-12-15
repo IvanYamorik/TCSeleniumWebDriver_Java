@@ -1,5 +1,6 @@
 package parser;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonParserTests {
     @Test
+    @Disabled("The Reason is p.5 from task 10")
     void readFromFile_worksCorrectly() {
         Parser parser = new JsonParser();
         Cart cartFromFile = parser.readFromFile(new File("src/main/resources/eugen-cart.json"));
