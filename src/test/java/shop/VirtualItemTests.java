@@ -2,6 +2,7 @@ package shop;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VirtualItemTests {
@@ -19,5 +20,27 @@ public class VirtualItemTests {
         String actualValues = testItem.toString();
 
         assertEquals(expectedValues, actualValues);
+    }
+
+    //p.6 from task 10. Implemented assertAll
+    @Test
+    void checkAssertAll_forGetMethodsVirtualItem() {
+        final String itemName = "Toy";
+        final double testPrice = 20.99;
+        final double testSizeOnDisk = 256;
+        VirtualItem newItem = new VirtualItem();
+        newItem.setName(itemName);
+        newItem.setPrice(testPrice);
+        newItem.setSizeOnDisk(testSizeOnDisk);
+
+        String actualName = newItem.getName();
+        double actualPrice = newItem.getPrice();
+        double actualWeight = newItem.getSizeOnDisk();
+
+        assertAll("Should return values of virtual item",
+                () -> assertEquals(itemName, actualName),
+                () -> assertEquals(testPrice, actualPrice),
+                () -> assertEquals(testSizeOnDisk, actualWeight)
+        );
     }
 }
