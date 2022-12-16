@@ -1,5 +1,7 @@
 package parser;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,10 +14,22 @@ import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonParserTests {
+    private static Parser parser;
+
+    @BeforeAll
+    static void createParser() {
+        parser = new JsonParser();
+    }
+
+    @AfterAll
+    static void deleteParser() {
+        parser = null;
+    }
+
     @Test
     @Disabled("The Reason is p.5 from task 10")
     void readFromFile_worksCorrectly() {
-        Parser parser = new JsonParser();
+
         Cart cartFromFile = parser.readFromFile(new File("src/main/resources/eugen-cart.json"));
         assertEquals("eugen-cart", cartFromFile.getCartName());
     }
@@ -23,7 +37,7 @@ public class JsonParserTests {
     @Test
     void writeToFile_createsFile_ivanCart() {
         Cart ivanCart = new Cart("ivan-cart");
-        Parser parser = new JsonParser();
+
         parser.writeToFile(ivanCart);
         File f = new File("src/main/resources/ivan-cart.json");
         assertTrue(f.exists());
@@ -36,7 +50,7 @@ public class JsonParserTests {
         RealItem testItem = new RealItem();
         testItem.setName("testName");
         testCart.addRealItem(testItem);
-        Parser parser = new JsonParser();
+
         parser.writeToFile(testCart);
         File f = new File("src/main/resources/test-cart.json");
         BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -47,7 +61,7 @@ public class JsonParserTests {
     @ParameterizedTest
     @ValueSource(strings = {"notexists-cart.json", "1.json", "2.json", "3.json", "newcart.json"})
     public void readFromFile_throwsNoSuchFileException(String fileName) {
-        Parser parser = new JsonParser();
+
         assertThrows(NoSuchFileException.class, () -> {
             parser.readFromFile(new File("src/main/resources/" + fileName));
         });
